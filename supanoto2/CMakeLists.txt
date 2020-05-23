@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(supanoto LANGUAGES CXX)
+project(supanoto2 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -24,27 +24,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Core Quick LinguistTools REQUIRED)
-
-set(TS_FILES supanoto_de_DE.ts)
+find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 if(ANDROID)
-    add_library(supanoto SHARED
+    add_library(supanoto2 SHARED
       main.cpp
       qml.qrc
-      ${TS_FILES}
     )
 else()
-    add_executable(supanoto
+    add_executable(supanoto2
       main.cpp
       qml.qrc
-      ${TS_FILES}
     )
 endif()
 
-target_compile_definitions(supanoto
+target_compile_definitions(supanoto2
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(supanoto
+target_link_libraries(supanoto2
   PRIVATE Qt5::Core Qt5::Quick)
-
-qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
