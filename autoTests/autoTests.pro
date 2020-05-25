@@ -6,6 +6,11 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += tst_testdatabase.cpp
 
-LIBS += -L../app -lsupanoto
+INCDIR = ../app
+INCLUDEPATH += $$INCDIR
+HEADERS += $$INCDIR/database.h
+
+SOURCES += $$INCDIR/database.cpp
+
+SOURCES += tst_testdatabase.cpp
