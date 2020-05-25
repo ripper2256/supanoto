@@ -45,7 +45,7 @@ void Database::dbSQLinsert(const QString &newNoteText){
 QSqlQuery Database::dbSQLselect(const QString &searchTerm){
     QSqlQuery query;
 
-    query.prepare("SELECT text FROM notes WHERE text LIKE ? ");
+    query.prepare("SELECT * FROM notes WHERE text LIKE ? ");
     query.addBindValue("%"+searchTerm+"%");
 
     if(!query.exec())
@@ -53,4 +53,12 @@ QSqlQuery Database::dbSQLselect(const QString &searchTerm){
 
 
     return query;
+}
+
+void Database::dbSQLdelete(const int &id){
+    QSqlQuery query;
+    query.prepare("DELETE FROM notes WHERE id = ? ");
+    query.addBindValue(id);
+    if(!query.exec())
+        qDebug() << "ERROR db delete: " << query.lastError().text();
 }

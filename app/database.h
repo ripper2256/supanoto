@@ -17,6 +17,9 @@ public:
     void dbTableCreate();
     void dbSQLinsert(const QString &newNoteText);
     QSqlQuery dbSQLselect(const QString &searchTerm);
+    void dbSQLdelete(const int &id);
+
+    const int TABLE_TEXT_ID = 1;
 
 private:
     QSqlDatabase db;
