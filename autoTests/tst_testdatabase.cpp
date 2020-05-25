@@ -1,5 +1,5 @@
 #include <QtTest>
-
+#include "database.h"
 // add necessary includes here
 
 class testDatabase : public QObject
@@ -27,7 +27,8 @@ testDatabase::~testDatabase()
 
 void testDatabase::test_case1()
 {
-
+    Database db;
+    db.dbConnection();
 }
 
 QTEST_APPLESS_MAIN(testDatabase)
