@@ -8,18 +8,30 @@ Window {
     width: 640
     height: 480
     title: qsTr("Supanoto")
-    Column{
+    ColumnLayout {
+        id: column
+        anchors.fill: parent
+        spacing: 2
 
         ScrollView {
-            id: view
-            anchors.fill: parent
+            id: scrollView
+            anchors.left: column.left
+            anchors.right: column.right
+            Layout.fillHeight: true
+            clip: true
 
             TextArea {
                 id: mainNote
+                clip: true
+                wrapMode: Text.WordWrap
+                anchors.fill: scrollView
                 placeholderText: qsTr("Enter your Note")
+
+
             }
 
         }
+
         Button {
             id: saveButton
             text: qsTr("Save")
