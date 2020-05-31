@@ -18,9 +18,12 @@ public:
 
     void dbConnection();
     void dbTableCreate();
+
     Q_INVOKABLE void dbSQLinsert(const QString &newNoteText);
+    Q_INVOKABLE QList<Note> dbSQLselect();
     Q_INVOKABLE QList<Note> dbSQLselect(const QString &searchTerm);
-    void dbSQLdelete(const int &id);
+
+    Q_INVOKABLE void dbSQLdelete(const int &id);
 
 
     const int TABLE_TEXT_ID = 1;

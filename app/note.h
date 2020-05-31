@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSqlQuery>
+#include <QDateTime>
 
 class Note
 {
@@ -15,9 +16,14 @@ public:
 
     int getID();
 
+    QDateTime getCreationDate();
+    QDateTime getLastModified();
+
 private:
     QString noteText;
     int noteID;
+    QDateTime noteCreationDate;
+    QDateTime noteLastModified;
 };
 
 #endif // NOTE_H

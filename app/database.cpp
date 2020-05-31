@@ -26,7 +26,7 @@ void Database::dbConnection(){
 
 void Database::dbTableCreate(){
     // database definition
-    QSqlQuery query("CREATE TABLE notes (id INTEGER PRIMARY KEY, text TEXT, tags TEXT)");
+    QSqlQuery query("CREATE TABLE notes (id INTEGER PRIMARY KEY, text TEXT, tags TEXT, creation_date TEXT, last_modified TEXT)");
 
     if(!query.isActive())
             qDebug() << "ERROR: " << query.lastError().text();
@@ -47,6 +47,17 @@ QList<Note> Database::dbSQLselect(const QString &searchTerm){
 
     query.prepare("SELECT * FROM notes WHERE text LIKE ? ");
     query.addBindValue("%"+searchTerm+"%");
+
+    if(!query.exec())
+        qDebug() << "ERROR db search: " << query.lastError().text();
+
+    return queryToNoteList(query);
+}
+
+QList<Note> Database::dbSQLselect(){
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM notes  ");
 
     if(!query.exec())
         qDebug() << "ERROR db search: " << query.lastError().text();
