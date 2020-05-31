@@ -42,15 +42,33 @@ void Database::dbSQLinsert(const QString &newNoteText){
         qDebug() << "ERROR db insert: " << query.lastError().text();
 }
 
-QSqlQuery Database::dbSQLselect(const QString &searchTerm){
+QList<Note> Database::dbSQLselect(const QString &searchTerm){
     QSqlQuery query;
 
-    query.prepare("SELECT text FROM notes WHERE text LIKE ? ");
+    query.prepare("SELECT * FROM notes WHERE text LIKE ? ");
     query.addBindValue("%"+searchTerm+"%");
 
     if(!query.exec())
         qDebug() << "ERROR db search: " << query.lastError().text();
 
+    return queryToNoteList(query);
+}
 
-    return query;
+void Database::dbSQLdelete(const int &id){
+    QSqlQuery query;
+    query.prepare("DELETE FROM notes WHERE id = ? ");
+    query.addBindValue(id);
+    if(!query.exec())
+        qDebug() << "ERROR db delete: " << query.lastError().text();
+}
+
+QList<Note> Database::queryToNoteList(QSqlQuery &sqlQuery){
+    QList<Note> myList;
+
+    while (sqlQuery.next()) {
+        Note myNote(sqlQuery.value(0).toInt(), sqlQuery.value(TABLE_TEXT_ID).toString());
+        myList.append(myNote);
+    }
+
+    return myList;
 }

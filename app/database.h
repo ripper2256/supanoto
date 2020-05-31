@@ -7,6 +7,8 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QList>
+#include "note.h"
 
 class Database
 {
@@ -16,10 +18,15 @@ public:
     void dbConnection();
     void dbTableCreate();
     void dbSQLinsert(const QString &newNoteText);
-    QSqlQuery dbSQLselect(const QString &searchTerm);
+    QList<Note> dbSQLselect(const QString &searchTerm);
+    void dbSQLdelete(const int &id);
+
+
+    const int TABLE_TEXT_ID = 1;
 
 private:
     QSqlDatabase db;
+    QList<Note> queryToNoteList(QSqlQuery &sqlQuery);
 };
 
 #endif // DATABASE_H
