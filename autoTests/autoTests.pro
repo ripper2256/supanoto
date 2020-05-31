@@ -9,8 +9,10 @@ TEMPLATE = app
 
 INCDIR = ../app
 INCLUDEPATH += $$INCDIR
-HEADERS += $$INCDIR/database.h
+HEADERS += $$INCDIR/database.h  $$INCDIR/note.h
 
-SOURCES += $$INCDIR/database.cpp
+SOURCES += $$INCDIR/database.cpp  $$INCDIR/note.cpp \
 
-SOURCES += tst_testdatabase.cpp
+
+
+SOURCES +=  tst_unitTestClass.cpp
