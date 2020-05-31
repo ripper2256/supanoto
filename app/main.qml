@@ -8,34 +8,83 @@ Window {
     width: 640
     height: 480
     title: qsTr("Supanoto")
-    ColumnLayout {
-        id: column
+
+    ListModel {
+        id: model
+          ListElement {
+              name: "Eine sehr lange notiz"
+
+          }
+          ListElement {
+              name: "Eine lange notiz"
+
+          }
+          ListElement {
+              name: "foobar"
+
+          }
+      }
+
+    RowLayout{
+        spacing: 10
         anchors.fill: parent
-        spacing: 2
 
-        ScrollView {
-            id: scrollView
-            anchors.left: column.left
-            anchors.right: column.right
+        ListView{
+            id: listView
             Layout.fillHeight: true
-            clip: true
-
-            TextArea {
-                id: mainNote
-                clip: true
-                wrapMode: Text.WordWrap
-                anchors.fill: scrollView
-                placeholderText: qsTr("Enter your Note")
-
+            Layout.preferredWidth: 180
+            Layout.fillWidth: false
+            model: model
+            delegate: Component {
+                Item {
+                    width: 180; height: 40
+                    Column {
+                        Text { text: name }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: listView.currentIndex = index
+                    }
+                }
 
             }
-
+            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+            highlightFollowsCurrentItem: true
+            focus: true
         }
 
-        Button {
-            id: saveButton
-            text: qsTr("Save")
+        ColumnLayout {
+            id: column
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            spacing: 2
+
+            ScrollView {
+                id: scrollView
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+
+                TextArea {
+                    id: mainNote
+                    clip: true
+                    wrapMode: Text.WordWrap
+
+                    placeholderText: qsTr("Enter your Note")
+                }
+
+            }
+            Row{
+                spacing: 15
+                Button {
+                    id: saveButton
+                    text: qsTr("Save")
+                }
+                Button {
+                    id: newButton
+                    text: qsTr("New Note")
+                }
+            }
         }
     }
-
 }
