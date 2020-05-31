@@ -75,10 +75,13 @@ void Database::dbSQLdelete(const int &id){
 
 QList<Note> Database::queryToNoteList(QSqlQuery &sqlQuery){
     QList<Note> myList;
-
+    QList<QVariant> foo;
     while (sqlQuery.next()) {
         Note myNote(sqlQuery.value(0).toInt(), sqlQuery.value(TABLE_TEXT_ID).toString());
         myList.append(myNote);
+        QVariant bar;
+        bar.setValue(myNote);
+        foo.append(bar);
     }
 
     return myList;

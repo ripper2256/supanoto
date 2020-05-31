@@ -40,7 +40,7 @@ Window {
             Layout.fillHeight: true
             Layout.preferredWidth: 180
             Layout.fillWidth: false
-            model: db.dbSQLselect("*")
+            model: db.dbSQLselect()
             delegate: Component {
                 Item {
                     width: 180; height: 40
@@ -95,6 +95,7 @@ Window {
                 Button {
                     id: newButton
                     text: qsTr("New Note")
+                    onClicked: mainNote.clear()
                 }
             }
         }
