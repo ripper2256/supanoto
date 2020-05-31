@@ -54,6 +54,17 @@ QList<Note> Database::dbSQLselect(const QString &searchTerm){
     return queryToNoteList(query);
 }
 
+QList<Note> Database::dbSQLselect(){
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM notes  ");
+
+    if(!query.exec())
+        qDebug() << "ERROR db search: " << query.lastError().text();
+
+    return queryToNoteList(query);
+}
+
 void Database::dbSQLdelete(const int &id){
     QSqlQuery query;
     query.prepare("DELETE FROM notes WHERE id = ? ");

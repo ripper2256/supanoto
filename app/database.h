@@ -18,6 +18,7 @@ public:
     void dbConnection();
     void dbTableCreate();
     void dbSQLinsert(const QString &newNoteText);
+    QList<Note> dbSQLselect();
     QList<Note> dbSQLselect(const QString &searchTerm);
     void dbSQLdelete(const int &id);
 
