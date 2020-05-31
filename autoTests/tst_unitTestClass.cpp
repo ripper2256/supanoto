@@ -20,6 +20,7 @@ private slots:
 
     // Note tests
     void test_case_setAndGet();
+    void test_case_note_timeStamps();
 
 };
 
@@ -102,6 +103,16 @@ void tst_unitTestClass::test_case_setAndGet()
     QString result = myNote.getNote();
 
     QCOMPARE(input, result);
+}
+
+void tst_unitTestClass::test_case_note_timeStamps(){
+    Note myNote(1,"lorem ipsum");
+
+    QCOMPARE(QDateTime::currentDateTime(), myNote.getCreationDate());
+
+    myNote.setNote("more lorem ipsum");
+
+    QCOMPARE(QDateTime::currentDateTime(), myNote.getLastModified());
 }
 
 QTEST_APPLESS_MAIN(tst_unitTestClass)
