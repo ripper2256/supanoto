@@ -10,15 +10,16 @@
 #include <QList>
 #include "note.h"
 
-class Database
+class Database : public QObject
 {
+    Q_OBJECT
 public:
-    Database();
+    explicit Database(QObject *parent = nullptr);
 
     void dbConnection();
     void dbTableCreate();
-    void dbSQLinsert(const QString &newNoteText);
-    QList<Note> dbSQLselect(const QString &searchTerm);
+    Q_INVOKABLE void dbSQLinsert(const QString &newNoteText);
+    Q_INVOKABLE QList<Note> dbSQLselect(const QString &searchTerm);
     void dbSQLdelete(const int &id);
 
 

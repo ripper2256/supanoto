@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-Database::Database()
+Database::Database(QObject *parent) : QObject(parent)
 {
     dbConnection();
     dbTableCreate();
