@@ -7,6 +7,9 @@
 
 class Note
 {
+    Q_GADGET
+    Q_PROPERTY(QString nText READ getNote WRITE setNote)
+
 public:
     Note();
     Note(int id, const QString &text);

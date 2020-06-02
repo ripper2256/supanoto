@@ -6,7 +6,8 @@ Database::Database(QObject *parent) : QObject(parent)
 {
     dbConnection();
     dbTableCreate();
-
+    m_model=new QStringListModel(this);
+    m_model->insertColumn(0);
 }
 
 
@@ -40,6 +41,11 @@ void Database::dbSQLinsert(const QString &newNoteText){
 
     if(!query.exec())
         qDebug() << "ERROR db insert: " << query.lastError().text();
+    const int newRow= m_model->rowCount();
+    Note note(1, newNoteText);
+    m_model->insertRow(newRow);
+    m_model->setData(m_model->index(newRow,0),newNoteText,Qt::EditRole);
+     modelChanged();
 }
 
 QList<Note> Database::dbSQLselect(const QString &searchTerm){
@@ -73,15 +79,12 @@ void Database::dbSQLdelete(const int &id){
         qDebug() << "ERROR db delete: " << query.lastError().text();
 }
 
+
 QList<Note> Database::queryToNoteList(QSqlQuery &sqlQuery){
     QList<Note> myList;
-    QList<QVariant> foo;
     while (sqlQuery.next()) {
         Note myNote(sqlQuery.value(0).toInt(), sqlQuery.value(TABLE_TEXT_ID).toString());
         myList.append(myNote);
-        QVariant bar;
-        bar.setValue(myNote);
-        foo.append(bar);
     }
 
     return myList;

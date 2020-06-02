@@ -40,19 +40,19 @@ Window {
             Layout.fillHeight: true
             Layout.preferredWidth: 180
             Layout.fillWidth: false
-            model: db.dbSQLselect()
+            model: db.model
             delegate: Component {
                 Item {
                     width: 180; height: 40
                     Column {
-                        Text { text: name }
+                        Text { text: display }
                     }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
                             listView.currentIndex = index;
-                            console.log(model.get(index).name);
-                            mainNote.text = model.get(index).name;
+                            console.log(model.get(index).display);
+                            mainNote.text = model.get(index).display;
 
                         }
                     }
@@ -90,7 +90,9 @@ Window {
                 Button {
                     id: saveButton
                     text: qsTr("Save")
-                    onClicked: db.dbSQLinsert(mainNote.text)
+                    onClicked: {
+                        db.dbSQLinsert(mainNote.text)
+                    }
                 }
                 Button {
                     id: newButton
